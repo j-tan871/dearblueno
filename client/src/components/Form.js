@@ -7,12 +7,12 @@ import Button from './Button';
 
 const Form = props => {
   const [length, setLength] = useState(0);
-  const [muse, setMuse] = useState(null);
+  const [muse, setMuse] = useState('blueno');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
-    const text = await fetch(process.env.REACT_APP_BACKEND_URL + `generate/${length}`);
+    const text = await fetch(process.env.REACT_APP_BACKEND_URL + `generate/${muse}/${muse === 'blueno' ? length : length * 5}`);
     const textData = await text.json();
     setLoading(false);
     nav(textData);
@@ -21,10 +21,13 @@ const Form = props => {
   const nav = (textData) => {
     props.history.push({
       pathname: '/viewText',
-      state: {text:textData}
+      state: {
+        text: textData, 
+        muse: muse
+      }
     });
   }
-  
+
   return (
     loading ? (
       <Fade>
@@ -38,17 +41,17 @@ const Form = props => {
         <h2 style={styles.question}>Every writer has a muse.</h2>
         <h3 style={styles.subQuestion}>Choose one.</h3>
         <div style={styles.buttonContainer}>
-          <Button text="Dear Blueno" color={muse === 'blueno' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('blueno')}/>
-          {/* <Button text="Dear Blueno" color="#dbf6e9" />
-          <Button text="Dear Blueno" color="#dbf6e9" />
-          <Button text="Dear Blueno" color="#dbf6e9" /> */}
+          <Button text="Dear Blueno" color={muse === 'blueno' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('blueno')} />
+          <Button text="Donald Trump" color={muse === 'trump' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('trump')} />
+          <Button text="Jane Austen" color={muse === 'austen' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('austen')} />
+          {/* <Button text="Dear Blueno" color="#dbf6e9" /> */}
         </div>
         <h2 style={{ ...styles.question, marginBottom: 20 }}>How long would you like the story to be?</h2>
         <div style={styles.buttonContainer}>
-          <Button text="25 words" color={length === 25 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(25)}/>
-          <Button text="50 words" color={length === 50 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(50)}/>
-          <Button text="100 words" color={length === 100 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(100)}/>
-          <Button text="200 words" color={length === 200 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(200)}/>
+          <Button text={`${muse === 'blueno' ? 25 : 125} words`} color={length === 25 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(25)}/>
+          <Button text={`${muse === 'blueno' ? 50 : 250} words`} color={length === 50 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(50)}/>
+          <Button text={`${muse === 'blueno' ? 100 : 500} words`} color={length === 100 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(100)}/>
+          <Button text={`${muse === 'blueno' ? 200 : 1000} words`} color={length === 200 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(200)}/>
         </div>
         <Button text="Submit" color='#9DDFD3' onClick={handleSubmit} disabled={length === 0 || muse === null}/>
     </div>

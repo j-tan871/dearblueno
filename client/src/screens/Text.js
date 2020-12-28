@@ -8,12 +8,13 @@ const Text = props => {
   }
 
   const text = props.history.location.state.text;
+  const muse = props.history.location.state.muse;
   console.log(text);
 
   return (
     <div style={styles.screen}>
       <div style={styles.container}>
-        <div style={styles.text}>{text.text}</div>
+        <div style={muse === 'blueno' ? styles.text : styles.smallText}>{text.text}</div>
         <button style={styles.button} onClick={nav}>Tell me another story</button>
       </div>
     </div>
@@ -40,6 +41,10 @@ const styles = {
     fontSize: 24, 
     marginBottom: 30
   }, 
+  smallText: {
+    fontSize: 16, 
+    marginBottom: 30
+  },
   button: {
     backgroundColor:"#9DDFD3", 
     border: 'none', 
