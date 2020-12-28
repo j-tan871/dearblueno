@@ -1,10 +1,13 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 import numpy as np
 import pandas as pd
 import csv
 from random import randint
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 content = []
 word_dict = {}
@@ -51,15 +54,18 @@ def generate_text(num_words):
     return post
 
 @app.route('/')
+@cross_origin()
 def index(): 
     return 'Root'
 
 @app.route('/generate/<int:num_words>')
+@cross_origin()
 def generate(num_words):
-
     make_corpus()
     generate_dict()
 
-    return generate_text(num_words)
+    return {
+        "text": generate_text(num_words)
+    }
 
 
