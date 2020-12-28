@@ -14,7 +14,7 @@ const Home = props => {
         <div style={styles.screen}>
           <div style={styles.container}>
             <h1 style={styles.header}>Storyteller</h1>
-            <p style={styles.subheader}>A Markov-chain text generator</p>
+            <p style={styles.subheader}>A Markov chain text generator</p>
           </div>
         </div>
       </Fade>
