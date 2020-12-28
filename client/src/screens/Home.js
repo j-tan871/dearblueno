@@ -1,43 +1,63 @@
-import React from 'react'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import Fade from 'react-reveal/Fade';
 
-const Home = () => {
+import Form from '../components/Form';
+
+const screenHeight = window.innerHeight;
+
+const Home = props => {
+
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Storyteller</h1>
-      <h2 style={styles.subtitle}>A Markov-chain text generator</h2>
-      <p style={styles.scroll}>scroll</p>
-    </div>
+    <React.Fragment>
+      <Fade>
+        <div style={styles.screen}>
+          <div style={styles.container}>
+            <h1 style={styles.header}>Storyteller</h1>
+            <p style={styles.subheader}>A Markov-chain text generator</p>
+          </div>
+        </div>
+      </Fade>
+      <Fade bottom>
+        <div style={styles.screen}>
+          <h1 style={styles.header}>Let me tell you a story...</h1>
+        </div>
+      </Fade>
+      <Fade bottom>
+        <div style={styles.screen}>
+          <Form history={props.history}/>
+        </div>
+      </Fade>
+    </React.Fragment>
   )
 }
 
-let styles = {
-  container:{
-    
-  },
-  title: {
-    marginTop: '12%',
-    marginLeft: '20%',
-
-    fontFamily: 'PT Serif',
-    fontSize: 50,
-    letterSpacing: 5,
-  }, 
-  subtitle: {
-    marginLeft: '20%',
-    fontFamily: 'PT Serif',
-    fontSize: 32,
-    letterSpacing: 5,
-  }, 
-  scroll: {
+const styles = {
+  screen: {
+    width: '100%',
+    height: screenHeight,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
-    marginTop: '25%',
-    fontFamily: 'PT Serif',
-    fontSize: 24,
+    justifyContent: 'center'
+  },
+  container: {
+    width: 600,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  header: {
+    fontSize: 50,
+    fontWeight: 'normal',
+    letterSpacing: 3,
+    marginBottom: 10
+  },
+  subheader: {
+    margin: 0,
+    fontSize: 32,
+    letterSpacing: 1.5
   }
 }
 
-export default Home;
+export default withRouter(Home);
