@@ -53,6 +53,9 @@ def generate_text(num_words):
     post += '.'
     return post
 
+make_corpus()
+generate_dict()
+
 @app.route('/')
 @cross_origin()
 def index(): 
@@ -61,9 +64,6 @@ def index():
 @app.route('/generate/<int:num_words>')
 @cross_origin()
 def generate(num_words):
-    make_corpus()
-    generate_dict()
-
     return {
         "text": generate_text(num_words)
     }

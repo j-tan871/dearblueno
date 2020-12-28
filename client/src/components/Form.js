@@ -36,7 +36,7 @@ const Form = props => {
     ) : (
       <div style={styles.container}>
         <h2 style={styles.question}>Every writer has a muse.</h2>
-        <h3 style={styles.subQuestion}>Who is yours?</h3>
+        <h3 style={styles.subQuestion}>Choose one.</h3>
         <div style={styles.buttonContainer}>
           <Button text="Dear Blueno" color={muse === 'blueno' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('blueno')}/>
           {/* <Button text="Dear Blueno" color="#dbf6e9" />
