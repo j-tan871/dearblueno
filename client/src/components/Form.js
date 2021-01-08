@@ -14,15 +14,23 @@ const Form = props => {
     const text = await fetch(process.env.REACT_APP_BACKEND_URL + `generate/${muse}/${muse === 'blueno' ? length : length * 5}`);
     const textData = await text.json();
     props.setLoading(false);
-    nav(textData);
+    let long;
+    if(muse !== 'blueno' && length >= 100) {
+      long = true;
+    } else {
+      long = false;
+    }
+    nav(textData, long);
   }
 
-  const nav = (textData) => {
+  const nav = (textData, long) => {
+    console.log(long);
     props.history.push({
       pathname: '/viewText',
       state: {
         text: textData, 
-        muse: muse
+        muse: muse, 
+        long: long
       }
     });
   }
@@ -47,7 +55,7 @@ const Form = props => {
         <p style={styles.note}>
           {
             muse === 'blueno' ? <div>generated using text scraped from the Dear Blueno Facebook page</div> 
-              : muse === 'trump' ? <dib>generated using Trump's 2016 campaign speeches</dib>
+              : muse === 'trump' ? <div>generated using Trump's 2016 campaign speeches</div>
               : muse === 'austen' ? <div>generated using Jane Austen's Pride and Prejudice</div> : null
           }
         </p>
