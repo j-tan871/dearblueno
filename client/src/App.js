@@ -5,6 +5,7 @@ import './App.css';
 
 import Home from './screens/Home';
 import Text from './screens/Text';
+import Retell from './screens/Retell';
 
 function App() {
   const history = useHistory()
@@ -13,11 +14,14 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path="/" exact>
-            <Home history={history}/>
-          </Route>
           <Route path="/viewText" exact>
             <Text history={history}/>
+          </Route>
+          <Route path="/retell" exact>
+            <Retell history={history} />
+          </Route>
+          <Route path="/" exact>
+            <Home history={history}/>
           </Route>
         </Switch>
         <Redirect to="/" />

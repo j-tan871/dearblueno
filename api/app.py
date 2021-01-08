@@ -83,13 +83,17 @@ def generate_text(num_words, corpus, dict):
     post += '.'
     return post
 
-make_blueno_corpus()
-trump_corpus = make_corpus('speeches.txt')
-austen_corpus = make_corpus('prideandprejudice.txt')
+@app.before_first_request
+def start():
+    make_blueno_corpus()
+    global trump_corpus
+    global austen_corpus
+    trump_corpus = make_corpus('speeches.txt')
+    austen_corpus = make_corpus('prideandprejudice.txt')
 
-generate_blueno_dict()
-generate_dict(trump_corpus, trump_dict)
-generate_dict(austen_corpus, austen_dict)
+    generate_blueno_dict()
+    generate_dict(trump_corpus, trump_dict)
+    generate_dict(austen_corpus, austen_dict)
 
 @app.route('/')
 @cross_origin()
@@ -117,4 +121,6 @@ def generate_austen(num_words):
         "text": generate_text(num_words, austen_corpus, austen_dict)
     }
 
+if __name__ == "__main__":
+    app.run()
 

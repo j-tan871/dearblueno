@@ -8,13 +8,12 @@ import Button from './Button';
 const Form = props => {
   const [length, setLength] = useState(0);
   const [muse, setMuse] = useState('blueno');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    setLoading(true);
+    props.setLoading(true);
     const text = await fetch(process.env.REACT_APP_BACKEND_URL + `generate/${muse}/${muse === 'blueno' ? length : length * 5}`);
     const textData = await text.json();
-    setLoading(false);
+    props.setLoading(false);
     nav(textData);
   }
 
@@ -29,7 +28,7 @@ const Form = props => {
   }
 
   return (
-    loading ? (
+    props.loading ? (
       <Fade>
         <div style={styles.container}>
           <h1 style={styles.loading}>Loading...</h1>
@@ -44,8 +43,14 @@ const Form = props => {
           <Button text="Dear Blueno" color={muse === 'blueno' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('blueno')} />
           <Button text="Donald Trump" color={muse === 'trump' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('trump')} />
           <Button text="Jane Austen" color={muse === 'austen' ? "#C8E3D6" : "#dbf6e9"} onClick={() => setMuse('austen')} />
-          {/* <Button text="Dear Blueno" color="#dbf6e9" /> */}
         </div>
+        <p style={styles.note}>
+          {
+            muse === 'blueno' ? <div>generated using text scraped from the Dear Blueno Facebook page</div> 
+              : muse === 'trump' ? <dib>generated using Trump's 2016 campaign speeches</dib>
+              : muse === 'austen' ? <div>generated using Jane Austen's Pride and Prejudice</div> : null
+          }
+        </p>
         <h2 style={{ ...styles.question, marginBottom: 20 }}>How long would you like the story to be?</h2>
         <div style={styles.buttonContainer}>
           <Button text={`${muse === 'blueno' ? 25 : 125} words`} color={length === 25 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(25)}/>
@@ -86,12 +91,17 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 0,
-    marginBottom: 30
+    marginBottom: 0
   },
   loading: {
     letterSpacing: 4, 
     fontSize: 50, 
     fontWeight: 'normal'
+  }, 
+  note: {
+    //alignSelf: 'flex-start',
+    margin: 0,
+    marginBottom: 30
   }
 }
 
