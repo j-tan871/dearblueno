@@ -24,7 +24,6 @@ const Form = props => {
   }
 
   const nav = (textData, long) => {
-    console.log(long);
     props.history.push({
       pathname: '/viewText',
       state: {
@@ -66,6 +65,7 @@ const Form = props => {
           <Button text={`${muse === 'blueno' ? 100 : 500} words`} color={length === 100 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(100)}/>
           <Button text={`${muse === 'blueno' ? 200 : 1000} words`} color={length === 200 ? "#C8E3D6" : "#dbf6e9"} onClick={() => setLength(200)}/>
         </div>
+        <p>Note: there may be a short delay the first time you press submit due to how the backend is deployed.</p>
         <Button text="Submit" color='#9DDFD3' onClick={handleSubmit} disabled={length === 0 || muse === null}/>
     </div>
     )
